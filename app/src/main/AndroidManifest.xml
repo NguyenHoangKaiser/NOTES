@@ -13,7 +13,8 @@
         android:theme="@style/Theme.NOTES">
         <activity
             android:name=".CreateNote"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
         <activity
             android:name=".notesActivity"
             android:exported="false" />
