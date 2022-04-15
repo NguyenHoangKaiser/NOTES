@@ -35,11 +35,11 @@ public class CreateNote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_note);
 
-        msavenote=findViewById(R.id.savenote);
-        mcreatecontentofnote=findViewById(R.id.createcontentofnote);
-        mcreatetitleofnote=findViewById(R.id.createtitleofnote);
+        msavenote=findViewById(R.id.gotoeditnote);
+        mcreatecontentofnote=findViewById(R.id.editcontentofnote);
+        mcreatetitleofnote=findViewById(R.id.edittitleofnote);
 
-        Toolbar toolbar=findViewById(R.id.toolbarofcreatenote);
+        Toolbar toolbar=findViewById(R.id.toolbarofeditnote);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

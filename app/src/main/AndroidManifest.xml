@@ -12,9 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NOTES">
         <activity
+            android:name=".notedetails"
+            android:exported="false" />
+        <activity
+            android:name=".editnoteactivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateNote"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".notesActivity"
             android:exported="false" />
