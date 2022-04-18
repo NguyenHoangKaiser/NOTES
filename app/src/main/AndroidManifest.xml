@@ -12,17 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NOTES">
         <activity
-            android:name=".notedetails"
+            android:name=".NoteDetails"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:exported="false" />
         <activity
-            android:name=".editnoteactivity"
+            android:name=".EditNoteActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".CreateNote"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
-            android:name=".notesActivity"
+            android:name=".NotesActivity"
             android:exported="false" />
         <activity
             android:name=".ForgotPassword"

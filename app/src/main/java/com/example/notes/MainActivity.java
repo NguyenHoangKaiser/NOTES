@@ -1,39 +1,28 @@
 package com.example.notes;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApi;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends AppCompatActivity {
 
-    GoogleSignInOptions gso;
-    GoogleSignInClient gsc;
-    ImageView googleBtn;
+//    GoogleSignInOptions gso;
+//    GoogleSignInClient gsc;
+//    ImageView googleBtn;
 ////////////////////////////////////
 
 //    private GoogleSignInClient googleSignInClient;
@@ -46,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mgotoforgotpassword;
 
     private FirebaseAuth firebaseAuth;
+    ProgressBar mprogressbarofmainactivity;
 
 
     @Override
@@ -60,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         mlogin = findViewById(R.id.login);
         mgotoforgotpassword = findViewById(R.id.gotoforgotpassword);
         mgotosignup = findViewById(R.id.gotosignup);
+        mprogressbarofmainactivity = findViewById(R.id.progressbarofmainactivity);
 
         //google log in
 //        GoogleSignInOptions gso = new
@@ -78,12 +69,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
-        googleBtn = findViewById(R.id.google_btn);
+//        googleBtn = findViewById(R.id.google_btn);
 //
-        gso=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        gsc= GoogleSignIn.getClient(this,gso);
+//        gso=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+//        gsc= GoogleSignIn.getClient(this,gso);
 
 //        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 //        if (acct!=null){
@@ -91,18 +82,18 @@ public class MainActivity extends AppCompatActivity {
 //            startActivity(new Intent(MainActivity.this,notesActivity.class) );
 //        }
 
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct!=null){
-            finish();
-            startActivity(new Intent(MainActivity.this, notesActivity.class));
-        }
-
-        googleBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SignIn();
-            }
-        });
+//        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+//        if (acct!=null){
+//            finish();
+//            startActivity(new Intent(MainActivity.this, notesActivity.class));
+//        }
+//
+//        googleBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                SignIn();
+//            }
+//        });
         ///////////////////////////////////////////////////////////////////////////////
 
         //firebase email+password
@@ -111,70 +102,70 @@ public class MainActivity extends AppCompatActivity {
 
         if (firebaseUser != null) {
             finish();
-            startActivity(new Intent(MainActivity.this, notesActivity.class));
+            startActivity(new Intent(MainActivity.this, NotesActivity.class));
         }
 
-        mgotosignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, SignUp.class));
-            }
-        });
+        mgotosignup.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, SignUp.class)));
 
-        mgotoforgotpassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ForgotPassword.class));
-            }
-        });
+        mgotoforgotpassword.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, ForgotPassword.class)));
 
-        mlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String mail = mloginemail.getText().toString().trim();
-                String password = mloginpassword.getText().toString().trim();
+        mlogin.setOnClickListener(view -> {
+            String mail = mloginemail.getText().toString().trim();
+            String password = mloginpassword.getText().toString().trim();
 
-                if (mail.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Điền vào tất cả các miền", Toast.LENGTH_SHORT).show();
+            if (mail.isEmpty() || password.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Điền vào tất cả các miền", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    // login the user
-                    firebaseAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                checkMailverfication();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "Tài khoản không tồn tại!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
+            } else {
+                // login the user
+                mprogressbarofmainactivity.setVisibility(View.VISIBLE);
+                firebaseAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        checkMailverfication();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Tài khoản không tồn tại!", Toast.LENGTH_SHORT).show();
+                        mprogressbarofmainactivity.setVisibility(View.INVISIBLE);
+                    }
+                });
             }
         });
     }
+
+    private void checkMailverfication() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser.isEmailVerified()) {
+            Toast.makeText(getApplicationContext(), "Đã đăng nhập!", Toast.LENGTH_SHORT).show();
+            finish();
+            startActivity(new Intent(MainActivity.this, NotesActivity.class));
+        } else {
+            mprogressbarofmainactivity.setVisibility(View.INVISIBLE);
+            Toast.makeText(getApplicationContext(), "Xác nhận email của bạn trước!", Toast.LENGTH_SHORT).show();
+            firebaseAuth.signOut();
+        }
+    }
+
 ////////////////////////////////////////////////
-    private void SignIn() {
-        Intent intent = gsc.getSignInIntent();
-        startActivityForResult(intent,100);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode==100){
-            Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
-            try {
-                task.getResult(ApiException.class);
-                finish();
-                startActivity(new Intent(MainActivity.this,notesActivity.class) );
-            } catch (ApiException e) {
-                Toast.makeText(this, "Xảy ra lỗi!", Toast.LENGTH_SHORT).show();
-            }
-
-        }
-    }
+//    private void SignIn() {
+//        Intent intent = gsc.getSignInIntent();
+//        startActivityForResult(intent,100);
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode==100){
+//            Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
+//            try {
+//                task.getResult(ApiException.class);
+//                finish();
+//                startActivity(new Intent(MainActivity.this,notesActivity.class) );
+//            } catch (ApiException e) {
+//                Toast.makeText(this, "Xảy ra lỗi!", Toast.LENGTH_SHORT).show();
+//            }
+//
+//        }
+//    }
 /////////////////////////////////////////////////////////////
 
 
@@ -206,24 +197,24 @@ public class MainActivity extends AppCompatActivity {
 //    }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void FirebaseGoogleAuth(GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-        //here we are checking the Authentication Credential and checking the task is successful or not and display the message
-        //based on that.
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Successful", Toast.LENGTH_LONG).show();
-                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-//                    UpdateUI(firebaseUser);
-                } else {
-                    Toast.makeText(MainActivity.this, "Failed!", Toast.LENGTH_LONG).show();
-//                    UpdateUI(null);
-                }
-            }
-        });
-    }
+//    private void FirebaseGoogleAuth(GoogleSignInAccount account) {
+//        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+//        //here we are checking the Authentication Credential and checking the task is successful or not and display the message
+//        //based on that.
+//        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()) {
+//                    Toast.makeText(MainActivity.this, "Successful", Toast.LENGTH_LONG).show();
+//                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+////                    UpdateUI(firebaseUser);
+//                } else {
+//                    Toast.makeText(MainActivity.this, "Failed!", Toast.LENGTH_LONG).show();
+////                    UpdateUI(null);
+//                }
+//            }
+//        });
+//    }
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -233,16 +224,6 @@ public class MainActivity extends AppCompatActivity {
 //        startActivityForResult(singInIntent,RESULT_CODE_SINGIN);
 //    }
     //////////////////////////////////////////////////////////////////////////
-    private void checkMailverfication() {
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser.isEmailVerified() == true) {
-            Toast.makeText(getApplicationContext(), "Đã đăng nhập!", Toast.LENGTH_SHORT).show();
-            finish();
-            startActivity(new Intent(MainActivity.this, notesActivity.class));
-        } else {
-            Toast.makeText(getApplicationContext(), "Xác nhận email của bạn trước!", Toast.LENGTH_SHORT).show();
-            firebaseAuth.signOut();
-        }
-    }
+
 
 }

@@ -1,18 +1,15 @@
 package com.example.notes;
 
-public class firebasemodel {
+public class FirebaseModel {
     private String title; //same in CreateNote.java
     private String content;
 
-    public firebasemodel ()
-    {
-
+    public FirebaseModel() {
     }
 
-    public  firebasemodel (String title, String content)
-    {
-        this.title=title;
-        this.content=content;
+    public FirebaseModel(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 
     public String getTitle() {

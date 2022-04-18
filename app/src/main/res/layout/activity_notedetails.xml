@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".notedetails">
+    tools:context=".NoteDetails">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarofnotedetail"
@@ -25,8 +25,8 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/editcontentofnote"
+    <TextView
+        android:id="@+id/contentofnotedetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbarofnotedetail"
@@ -38,7 +38,7 @@
         android:textColorHint="#777171"
         android:textSize="17sp">
 
-    </EditText>
+    </TextView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/gotoeditnote"
@@ -50,8 +50,8 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="30dp"
         android:background="#A1F4FB"
-        android:src="@drawable/edit"
-        app:maxImageSize="56dp"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:maxImageSize="40dp"
 
         >
 
