@@ -1,73 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".CreateNote">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarofcreatenote"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/teal_200">
-
-
-        <EditText
-            android:id="@+id/createtitleofnote"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Thêm tiêu đề"
-            android:paddingTop="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/purple_500"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <EditText
-        android:id="@+id/createcontentofnote"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbarofcreatenote"
-        android:background="#faf7f7"
-        android:gravity="top|left"
-        android:hint="Thêm nội dung"
-        android:textColorHint="@color/purple_500"
-        android:padding="15dp"
-        android:textColor="@color/black"
-        android:textSize="15sp">
+        android:layout_marginBottom="@dimen/_40sdp"
+        android:paddingBottom="@dimen/_10sdp"
+        android:clipToPadding="false">
 
-    </EditText>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
 
+            <ImageView
+                android:id="@+id/imageBack"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/colorIcon" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <ImageView
+                android:id="@+id/imageSave"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="@drawable/background_done_button"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_done"
+                app:layout_constraintBottom_toBottomOf="@id/imageBack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageBack"
+                app:tint="@color/colorIcon" />
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_gravity="bottom|end"
-        android:id="@+id/savenote"
-        android:src="@drawable/save"
-        android:background="#A1F4FB"
-        app:maxImageSize="56dp"
+            <EditText
+                android:id="@+id/inputNoteTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="@null"
+                android:hint="Note Title"
+                android:imeOptions="actionDone"
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintTop_toBottomOf="@+id/imageBack" />
 
-        >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textDateTime"
+                android:includeFontPadding="false"
+                android:textColor="@color/colorIcon"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@+id/inputNoteTitle"
+                app:layout_constraintStart_toStartOf="@+id/inputNoteTitle"
+                app:layout_constraintTop_toBottomOf="@+id/inputNoteTitle"/>
 
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/inputNoteSubtitle"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="@null"
+                android:hint="Note Subtitle"
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="textMultiLine"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/viewSubtitleIndicator"
+                app:layout_constraintTop_toBottomOf="@id/textDateTime"/>
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="invisible"
-        android:id="@+id/progressbarofcreatenote"
-        android:layout_marginTop="10dp">
+            <View
+                android:layout_width="@dimen/_5sdp"
+                android:layout_height="0dp"
+                android:id="@+id/viewSubtitleIndicator"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:background="@drawable/background_subtitle_indicator"
+                app:layout_constraintBottom_toBottomOf="@+id/inputNoteSubtitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/inputNoteSubtitle" />
 
-    </ProgressBar>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inputNote"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="Type note here..."
+                android:importantForAutofill="no"
+                android:includeFontPadding="false"
+                android:inputType="textMultiLine"
+                android:minHeight="@dimen/_100sdp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/gray"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/inputNoteSubtitle"/>
 
-</RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/layout_miscellaneous" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

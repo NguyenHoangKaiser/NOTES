@@ -44,5 +44,12 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.1'
 
+    //Material Design
+    implementation 'com.google.android.material:material:1.7.0-alpha01'
+    //Scalable Size Unit
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+    // Rounded Image View
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }
 
